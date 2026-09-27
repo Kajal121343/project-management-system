@@ -4,8 +4,11 @@ import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { UserPlus, User as UserIcon, Mail } from "lucide-react";
-import { register as registerUser, clearError } from "../features/auth/authSlice.js";
+import { User as UserIcon, Mail, ArrowRight } from "lucide-react";
+import {
+  register as registerUser,
+  clearError,
+} from "../features/auth/authSlice.js";
 import PasswordInput from "../components/common/PasswordInput.jsx";
 import { toast } from "react-toastify";
 
@@ -49,30 +52,59 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 via-white to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4">
-      <div className="w-full max-w-md">
-        {/* Logo */}
+    <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-[0.035] dark:opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-300/20 dark:bg-brand-500/10 blur-3xl pointer-events-none" />
+
+      <div className="relative w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-500/25">
-            <UserPlus className="w-7 h-7 text-white" />
+          <div className="relative inline-flex">
+            <div className="absolute inset-0 rounded-2xl bg-brand-500/30 blur-xl" />
+            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-500/30">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="w-7 h-7 text-white"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="9" rx="1.5" />
+                <rect x="14" y="3" width="7" height="5" rx="1.5" />
+                <rect x="14" y="12" width="7" height="9" rx="1.5" />
+                <rect x="3" y="16" width="7" height="5" rx="1.5" />
+              </svg>
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-4">
             TaskTracky
           </h1>
-          <p className="text-sm text-slate-500 mt-2 dark:text-slate-400">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 tracking-wide">
             Get organized in seconds.
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="card p-8 space-y-5"
+          className="card p-7 sm:p-8 space-y-4 backdrop-blur-sm"
         >
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 text-[11px] font-medium tracking-wide uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+              Get started
+            </span>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
               Create your account
             </h2>
-            <p className="text-sm text-slate-500 mt-1 dark:text-slate-400">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Free forever. No credit card needed.
             </p>
           </div>
@@ -108,7 +140,7 @@ export default function Register() {
           <div>
             <label className="label">Password</label>
             <PasswordInput
-              placeholder="••••••••"
+              placeholder="Create a password"
               autoComplete="new-password"
               {...register("password")}
             />
@@ -120,7 +152,7 @@ export default function Register() {
           <div>
             <label className="label">Confirm Password</label>
             <PasswordInput
-              placeholder="••••••••"
+              placeholder="Confirm your password"
               autoComplete="new-password"
               {...register("confirmPassword")}
             />
@@ -130,16 +162,35 @@ export default function Register() {
           </div>
 
           <button
-            className="btn btn-primary w-full py-2.5 shadow-lg shadow-brand-500/25"
+            type="submit"
             disabled={loading}
+            className="btn btn-primary w-full py-2.5 shadow-md shadow-brand-500/20 group"
           >
-            {loading ? "Creating account..." : "Create account"}
+            {loading ? (
+              "Creating account..."
+            ) : (
+              <>
+                Create account
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </>
+            )}
           </button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <span className="px-3 bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500">
+                or
+              </span>
+            </div>
+          </div>
 
           <p className="text-sm text-center text-slate-600 dark:text-slate-400">
             Already have an account?{" "}
             <Link
-              className="text-brand-600 font-medium hover:underline dark:text-brand-400"
+              className="text-brand-600 font-medium hover:underline underline-offset-2 dark:text-brand-400"
               to="/login"
             >
               Sign in
@@ -147,8 +198,8 @@ export default function Register() {
           </p>
         </form>
 
-        <p className="text-xs text-center text-slate-400 mt-6 dark:text-slate-500">
-          © 2026 TaskTracky
+        <p className="text-[11px] text-center text-slate-400 mt-6 dark:text-slate-500 tracking-wide">
+          © 2026 TaskTracky · Built with MERN Stack
         </p>
       </div>
     </div>
