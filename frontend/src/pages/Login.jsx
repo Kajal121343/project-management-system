@@ -39,58 +39,85 @@ export default function Login() {
   const onSubmit = (data) => dispatch(login(data));
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 p-4">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="card w-full max-w-md p-8 space-y-5"
-      >
-        <div className="text-center mb-2">
-          <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-brand-600 flex items-center justify-center">
-            <LogIn className="w-6 h-6 text-white" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-50 via-white to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 p-4">
+      <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center shadow-lg shadow-brand-500/25">
+            <LogIn className="w-7 h-7 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Welcome back</h2>
-          <p className="text-sm text-slate-500 mt-1">
-            Sign in to your PM System account
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+            TaskTracky
+          </h1>
+          <p className="text-sm text-slate-500 mt-2 dark:text-slate-400">
+            Manage projects. Ship faster.
           </p>
         </div>
 
-        <div>
-          <label className="label">Email</label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              className="input pl-9"
-              placeholder="you@example.com"
-              autoComplete="email"
-              {...register("email")}
-            />
+        {/* Card */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="card p-8 space-y-5"
+        >
+          <div>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+              Welcome back
+            </h2>
+            <p className="text-sm text-slate-500 mt-1 dark:text-slate-400">
+              Sign in to continue
+            </p>
           </div>
-          {errors.email && <p className="error-text">{errors.email.message}</p>}
-        </div>
 
-        <div>
-          <label className="label">Password</label>
-          <PasswordInput
-            placeholder="••••••••"
-            autoComplete="current-password"
-            {...register("password")}
-          />
-          {errors.password && (
-            <p className="error-text">{errors.password.message}</p>
-          )}
-        </div>
+          <div>
+            <label className="label">Email</label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                className="input pl-9"
+                placeholder="you@example.com"
+                autoComplete="email"
+                {...register("email")}
+              />
+            </div>
+            {errors.email && (
+              <p className="error-text">{errors.email.message}</p>
+            )}
+          </div>
 
-        <button className="btn btn-primary w-full py-2.5" disabled={loading}>
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
+          <div>
+            <label className="label">Password</label>
+            <PasswordInput
+              placeholder="••••••••"
+              autoComplete="current-password"
+              {...register("password")}
+            />
+            {errors.password && (
+              <p className="error-text">{errors.password.message}</p>
+            )}
+          </div>
 
-        <p className="text-sm text-center text-slate-600">
-          Don't have an account?{" "}
-          <Link className="text-brand-600 font-medium hover:underline" to="/register">
-            Create one
-          </Link>
+          <button
+            className="btn btn-primary w-full py-2.5 shadow-lg shadow-brand-500/25"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign in"}
+          </button>
+
+          <p className="text-sm text-center text-slate-600 dark:text-slate-400">
+            Don't have an account?{" "}
+            <Link
+              className="text-brand-600 font-medium hover:underline dark:text-brand-400"
+              to="/register"
+            >
+              Create one
+            </Link>
+          </p>
+        </form>
+
+        <p className="text-xs text-center text-slate-400 mt-6 dark:text-slate-500">
+          © 2026 TaskTracky
         </p>
-      </form>
+      </div>
     </div>
   );
 }

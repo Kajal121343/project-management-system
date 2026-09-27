@@ -2,10 +2,12 @@
 
 A full-stack project and task management application built with the MERN stack. It supports authentication, role-based access, project and task management, Kanban board, notifications, activity history, search, filtering, pagination, dark mode, and dashboard analytics.
 
+
+
 ## Live Demo
 
-* **Frontend:** Add Vercel URL
-* **Backend:** Add Render URL
+* **Frontend:** https://project-management-system-lime-chi.vercel.app
+* **Backend:** https://pm-backend-pros.onrender.com
 
 ## Tech Stack
 

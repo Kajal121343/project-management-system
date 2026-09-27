@@ -77,7 +77,7 @@ export default function Navbar() {
                 <FolderKanban className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-slate-900 hidden sm:inline dark:text-white">
-                PM System
+               TaskTracky
               </span>
             </Link>
 
