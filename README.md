@@ -228,23 +228,24 @@ The application uses JWT authentication and three levels of authorization:
 2. **Backend middleware** – JWT is verified before protected requests.
 3. **Project-level authorization** – ownership, membership, and admin access are checked on the server.
 
-### Roles
+### Roles and Permissions
 
-| Action         | Admin | Owner |           Member           |
-| -------------- | :---: | :---: | :------------------------: |
-| View users     |   ✅   |   ❌   |              ❌             |
-| View projects  |   ✅   |   ✅   |              ✅             |
-| Edit project   |   ✅   |   ✅   |              ❌             |
-| Delete project |   ✅   |   ✅   |              ❌             |
-| Manage members |   ✅   |   ✅   |              ❌             |
-| Create tasks   |   ✅   |   ✅   |              ✅             |
-| Update tasks   |   ✅   |   ✅   |          Assigned          |
-| Delete tasks   |   ✅   |   ✅   | Allowed by task permission |
+Every account has exactly one role: `USER` or `ADMIN`. Ownership and membership are **per-project relationships**, not roles.
 
-The backend is the final authority for permissions.
+| Action | Admin | Project Owner | Project Member |
+|---|---|---|---|
+| View users directory | Yes | No | No |
+| View projects and tasks | All projects | Owned projects | Joined projects |
+| Create a new project | Yes | Yes | Yes |
+| Edit / archive / delete a project | Yes | Yes | No |
+| Add or remove project members | Yes | Yes | No |
+| Create tasks within a project | Yes | Yes | Yes |
+| Update any task | Yes | Yes | Only tasks assigned to them |
+| Delete tasks | Yes | Yes | Only tasks they created or are assigned to |
 
----
+Access is enforced by middleware on the server — `checkProjectAccess` sets `req.isOwner` and `req.isAdmin` flags, and owner-only routes additionally require `requireProjectOwner`. Unauthorized requests receive `403 Forbidden`. The frontend route guards are cosmetic.
 
+Public registration can never create an `ADMIN` account. The Zod schema strips unknown fields and the model defaults to `USER`.
 ## State Management
 
 Redux Toolkit is used for state that is shared across different pages.
